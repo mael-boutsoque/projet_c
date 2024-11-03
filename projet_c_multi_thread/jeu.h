@@ -4,23 +4,15 @@
 #include <time.h>
 #include <unistd.h>
 #include <pthread.h>
-
-// Mettez en commentaire cette ligne si vous êtes sous Windows :
-//#include <termios.h>
 #include <windows.h>
 #include <conio.h>
 
 pthread_mutex_t dmutex = PTHREAD_MUTEX_INITIALIZER;
 
-
 #define TRUE 1
 #define FALSE 0
 
-// Mettez en commentaire cette ligne si vous êtes sous Windows :
-//static struct termios origtc, newtc;
-
-
-// utilisee que pour charger le plateau a patir du .txt
+// utilisee seulement pour charger le plateau a patir du .txt
 enum direction {HAUT,BAS,GAUCHE,DROITE};
 typedef struct{
     int **plateau;
@@ -63,8 +55,6 @@ typedef struct{
     carte_routiere carte;
 } thread_parameters;
 
-void * lire_clavier(void *arg);
 void lire_plateau(char *fichier,star_t *star);
 void clearScreen();
 void *afficher_plateau(void *arg);
-void placer_star(star_t *star);

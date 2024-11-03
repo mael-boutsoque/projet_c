@@ -2,9 +2,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
-/*
- * Lire le plateau du jeu depuis un fichier et remplir la structure star
- */
+
 #define Max_number_length 2
 
 
@@ -381,18 +379,4 @@ void *afficher_plateau(void *arg) {
         pthread_mutex_unlock(&dmutex);
     Sleep(500);
     }
-}
-
-void placer_star(star_t *star) {
-   int col;
-   int lig;
-   lig =random(0,(*star).lignes-1) ; col = random(0,(*star).colonnes-1) ;
-
-   while((*star).plateau[lig][col]!=0){
-    lig = random(0,(*star).lignes-1) ; col = random(0,(*star).colonnes-1) ;
-   }
-   printf("etoile placee en (%d , %d)",col,lig);
-   (*star).posc = col+1;
-   (*star).posl = lig;
-   (*star).plateau[lig][col]=2;
 }
