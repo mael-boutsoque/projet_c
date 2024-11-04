@@ -14,7 +14,13 @@ void *move_car(void *arg){
 
         if(parametres->carte.plateau[y][x]==6){
             //deplacement horizontal
-            if((parametres->carte.plateau[y][x+1]==1 || parametres->carte.plateau[y][x+1]==2) && parametres->carte.plateau[y+1][x-1]!=5){ //test voiture en +1 et test feu rouge
+            if(parametres->carte.voitures[id_car][1] > parametres->carte.colonnes - 2){
+                parametres->carte.voitures[id_car][0] = y;
+                parametres->carte.voitures[id_car][1] = 0;
+                parametres->carte.plateau[y][x] = 1;
+                parametres->carte.plateau[y][0] = 6;
+            }
+            else if((parametres->carte.plateau[y][x+1]==1 || parametres->carte.plateau[y][x+1]==2) && (x<1 || parametres->carte.plateau[y+1][x-1]!=5)){ //test voiture en +1 et test feu rouge
                 parametres->carte.voitures[id_car][0] = y;
                 parametres->carte.voitures[id_car][1] = x+1;
                 parametres->carte.plateau[y][x] = 1;
@@ -23,8 +29,13 @@ void *move_car(void *arg){
         }
         else{
             //deplacement vertical
-
-            if((parametres->carte.plateau[y+1][x]==2 || parametres->carte.plateau[y+1][x]==1) && parametres->carte.plateau[y-1][x-1]!=5){ //test voiture en +1 et test feu rouge
+            if(parametres->carte.voitures[id_car][0] > parametres->carte.lignes - 2){
+                parametres->carte.voitures[id_car][0] = 0;
+                parametres->carte.voitures[id_car][1] = x;
+                parametres->carte.plateau[y][x] = 2;
+                parametres->carte.plateau[0][x] = 7;
+            }
+            else if((parametres->carte.plateau[y+1][x]==2 || parametres->carte.plateau[y+1][x]==1) && (y<1 || parametres->carte.plateau[y-1][x-1]!=5)){ //test voiture en +1 et test feu rouge
                 parametres->carte.voitures[id_car][0] = y+1;
                 parametres->carte.voitures[id_car][1] = x;
                 parametres->carte.plateau[y][x] = 2;

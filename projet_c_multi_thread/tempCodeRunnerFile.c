@@ -1,1 +1,1 @@
-char
+parametres->carte.plateau[y][x] = 1;

@@ -286,35 +286,6 @@ carte_routiere place_cars_rd(carte_routiere carte , int nb_voitures){
     return carte;
 }
 
-void move_car_old(carte_routiere carte,int id_car){
-    int y = carte.voitures[id_car][0];
-    int x = carte.voitures[id_car][1];
-
-    printf("[%d,%d] ",x,y);
-
-    if(carte.plateau[y][x]==6){
-        //deplacement horizontal
-        if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && carte.plateau[y+1][x-1]!=5){ //test voiture en +1 et test feu rouge
-            carte.voitures[id_car][0] = y;
-            carte.voitures[id_car][1] = x+1;
-            carte.plateau[y][x] = 1;
-            carte.plateau[y][x+1] = 6;
-            return ;
-        }
-    }
-    else{
-        //deplacement vertical
-
-        if((carte.plateau[y+1][x]==2 || carte.plateau[y+1][x]==1) && carte.plateau[y-1][x-1]!=5){ //test voiture en +1 et test feu rouge
-            carte.voitures[id_car][0] = y+1;
-            carte.voitures[id_car][1] = x;
-            carte.plateau[y][x] = 2;
-            carte.plateau[y+1][x] = 7;
-            return ;
-        }
-    }
-}
-
 carte_routiere feux_change_color(carte_routiere carte){
     for(int i=0;i<carte.nb_feux;i++){
         int y = carte.feux[i][0];
@@ -339,8 +310,7 @@ void clearScreen()
 void *afficher_plateau(void *arg) {
     carte_routiere * star = (carte_routiere*) arg;
     while(1){
-        pthread_mutex_lock(&dmutex);
-        //clearScreen();
+        clearScreen();
         int count;
         for(int i=0;i<star->lignes;i++){
             for(int j=0;j<star->colonnes;j++){
@@ -376,7 +346,6 @@ void *afficher_plateau(void *arg) {
             }
             printf("\n");
         }
-        pthread_mutex_unlock(&dmutex);
     Sleep(500);
     }
 }
