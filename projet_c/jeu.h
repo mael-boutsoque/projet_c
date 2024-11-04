@@ -55,8 +55,6 @@ typedef struct{
     int nb_route_horizontale;
 } carte_routiere;
 
-void * lire_clavier(void *arg);
 void lire_plateau(char *fichier,star_t *star);
 void clearScreen();
 void afficher_plateau(carte_routiere star);
-void placer_star(star_t *star);

@@ -2,9 +2,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
-/*
- * Lire le plateau du jeu depuis un fichier et remplir la structure star
- */
+
 #define Max_number_length 2
 
 int random(int MIN,int MAX){
@@ -295,7 +293,7 @@ carte_routiere move_car(carte_routiere carte,int id_car){
 
     if(carte.plateau[y][x]==6){
         //deplacement horizontal
-        if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && carte.plateau[y+1][x-1]!=5){ //test voiture en +1 et test feu rouge
+        if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && (x<1 || carte.plateau[y+1][x-1]!=5)){ //test voiture en +1 et test feu rouge
             carte.voitures[id_car][0] = y;
             carte.voitures[id_car][1] = x+1;
             carte.plateau[y][x] = 1;
@@ -306,7 +304,7 @@ carte_routiere move_car(carte_routiere carte,int id_car){
     else{
         //deplacement vertical
 
-        if((carte.plateau[y+1][x]==2 || carte.plateau[y+1][x]==1) && carte.plateau[y-1][x-1]!=5){ //test voiture en +1 et test feu rouge
+        if((carte.plateau[y+1][x]==2 || carte.plateau[y+1][x]==1) && (y<1 || carte.plateau[y-1][x-1]!=5)){ //test voiture en +1 et test feu rouge
             carte.voitures[id_car][0] = y+1;
             carte.voitures[id_car][1] = x;
             carte.plateau[y][x] = 2;
@@ -336,10 +334,7 @@ void clearScreen()
     for (n = 0; n < 10; n++)
         printf( "\n\n\n\n\n\n\n\n\n\n" );
 }
-/*
- * Afficher le plateau sur l'écran en remplaçant 1 par '#'
- * 0 par ' ' et 2 par '*'
- */
+
 void afficher_plateau(carte_routiere star) {
     clearScreen();
     int count;
@@ -377,21 +372,4 @@ void afficher_plateau(carte_routiere star) {
         }
         printf("\n");
 	}
-}
-/*
- * Placer l'étoile dans une case choisie aléatoirement
- * en évitant les ases obstacles.
- */
-void placer_star(star_t *star) {
-   int col;
-   int lig;
-   lig =random(0,(*star).lignes-1) ; col = random(0,(*star).colonnes-1) ;
-
-   while((*star).plateau[lig][col]!=0){
-    lig = random(0,(*star).lignes-1) ; col = random(0,(*star).colonnes-1) ;
-   }
-   printf("etoile placee en (%d , %d)",col,lig);
-   (*star).posc = col+1;
-   (*star).posl = lig;
-   (*star).plateau[lig][col]=2;
 }
