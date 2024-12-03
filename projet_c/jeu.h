@@ -30,7 +30,7 @@ typedef struct{
     enum direction direction; // direction actuelle de l'étoile
 } star_t;
 
-
+// parametre pour la contruction de la map
 typedef struct{
     int hauteur;
     int largeur;
@@ -41,6 +41,7 @@ typedef struct{
     int d_route_horizontale;
 } parameters;
 
+// map sur laquelle roule les voitures
 typedef struct{
     int **plateau;
     int lignes; // Nombre de lignes de plateau
