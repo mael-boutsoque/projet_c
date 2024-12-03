@@ -297,26 +297,23 @@ carte_routiere move_car(carte_routiere carte,int id_car){
     if(carte.plateau[y][x]==6){
         //deplacement horizontal
         if(carte.voitures[id_car][1]>=carte.colonnes-1){
-            carte.voitures[id_car][0] = y;
-            carte.voitures[id_car][1] = 0;
             carte.voitures[id_car] = NULL;
             carte.plateau[y][x] = 1;
             // carte.plateau[y][x+1] = 6;
         }
 
-        if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && (x<1 || carte.plateau[y+1][x-1]!=5)){ //test voiture en +1 et test feu rouge
+        else if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && (x<1 || carte.plateau[y+1][x-1]!=5)){ //test voiture en +1 et test feu rouge
             carte.voitures[id_car][0] = y;
             carte.voitures[id_car][1] = x+1;
             carte.plateau[y][x] = 1;
             carte.plateau[y][x+1] = 6;
             return carte;
         }
+        else carte.car_can_move = 0;
     }
     else{
         //deplacement vertical
         if(carte.voitures[id_car][0]>=carte.lignes-1){
-            carte.voitures[id_car][0] = 0;
-            carte.voitures[id_car][1] = x;
             carte.voitures[id_car] = NULL;
             carte.plateau[y][x] = 2;
             //carte.plateau[y+1][x] = 7;
@@ -329,7 +326,9 @@ carte_routiere move_car(carte_routiere carte,int id_car){
             carte.plateau[y+1][x] = 7;
             return carte;
         }
+        else carte.car_can_move = 0;
     }
+    return carte;
 }
 
 carte_routiere feux_change_color(carte_routiere carte){

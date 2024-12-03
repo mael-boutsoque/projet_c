@@ -53,6 +53,7 @@ typedef struct{
     int d_route_verticale;
     int nb_route_verticale;
     int nb_route_horizontale;
+    int car_can_move;
 } carte_routiere;
 
 void lire_plateau(char *fichier,star_t *star);
