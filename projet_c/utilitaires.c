@@ -14,47 +14,6 @@ int random(int MIN,int MAX){
     return (rand() % (MAX-MIN+1)) + MIN ;
 }
 
-void lire_plateau(char *fichier,star_t *star) {
-	FILE *f;
-	char str[100];
-	int i,j;
-	char ch;
-    star->lignes = 0;
-	f = fopen(fichier,"r");
-    if (f == NULL){
-        printf("Je ne peux pas ouvrir le fichier %s\n",fichier);
-        exit(-1);
-    }
-    int k=0;
-	while (fgets(str,sizeof(str),f) != NULL){
-		str[strlen(str)-1] = '\0';
-		star->colonnes = strlen(str);
-		star->lignes++;
-	}
-	fclose(f);
-	star->plateau = (int **)malloc(star->lignes*sizeof(int *));
-	for (i=0; i < star->lignes;i++){
-		star->plateau[i] = (int *)malloc(star->colonnes*sizeof(int));
-	}
-	f = fopen(fichier,"r");
-	i = 0; j = 0;
-	while ((ch = getc(f)) != EOF) {
-        if (ch != '\n') {
-            if (ch == '#') {
-                star->plateau[i][j] = 1;
-            }else{
-                star->plateau[i][j] = 0;
-            }
-            j++;
-            if (j == star->colonnes) {
-                j = 0;
-                i++;
-            }
-        }
-	}
-}
-
-
 parameters lire_plateau2(char *fichier,star_t *star) {
 	FILE *f;
 	char str[100];
