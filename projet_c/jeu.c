@@ -16,19 +16,19 @@ int main() {
     //boucle de jeu
     int counter_feux =0;
     while(1){
-        if (counter_feux < 4){
-            counter_feux++;
-        }
-        else{
-            counter_feux =0;
-            carte = feux_change_color(carte);
-        }
+        // if (counter_feux < 4){
+        //     counter_feux++;
+        // }
+        // else{
+        //     counter_feux =0;
+        //     carte = feux_change_color(carte);
+        // }
         for(int i=0;i<carte.nb_voitures;i++){
             carte = move_car(carte , i);
             afficher_plateau(carte);
-            Sleep(300);
+            Sleep(200);
         }
-        Sleep(700);
+        Sleep(200);
         printf("\n");
     }
 

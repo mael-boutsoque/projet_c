@@ -174,13 +174,13 @@ carte_routiere create_map(parameters parametres){
 
     //placement des routes
 
-    //preparation de la liste des feux
-    carte.nb_feux = parametres.nb_route_horizontale*parametres.nb_route_verticale*2;
-    carte.feux = (int **)malloc(carte.nb_feux*sizeof(int *));   
-    for (int i=0 ; i < carte.nb_feux ; i++){
-		carte.feux[i] = (int *)malloc(2*sizeof(int));
-	}
-    int id_feux =0;
+    // //preparation de la liste des feux
+    // carte.nb_feux = parametres.nb_route_horizontale*parametres.nb_route_verticale*2;
+    // carte.feux = (int **)malloc(carte.nb_feux*sizeof(int *));   
+    // for (int i=0 ; i < carte.nb_feux ; i++){
+	// 	carte.feux[i] = (int *)malloc(2*sizeof(int));
+	// }
+    // int id_feux =0; 
 
     //ecart entre les routes
     int d_route_verticale = carte.lignes / (parametres.nb_route_verticale+1);
@@ -210,15 +210,15 @@ carte_routiere create_map(parameters parametres){
                 int j2 = (j+1)*d_route_horizontale;
                 carte.plateau[i][j2] = 2;
 
-                //on met des feux
-                carte.plateau[i-2][j2-1] = 5;
-                carte.feux[id_feux][0] = i-2;
-                carte.feux[id_feux][1] = j2-1;
-                id_feux++;
-                carte.plateau[i+1][j2-2] = 4;
-                carte.feux[id_feux][0] = i+1;
-                carte.feux[id_feux][1] = j2-2;
-                id_feux++;
+                // //on met des feux
+                // carte.plateau[i-2][j2-1] = 5;
+                // carte.feux[id_feux][0] = i-2;
+                // carte.feux[id_feux][1] = j2-1;
+                // id_feux++;
+                // carte.plateau[i+1][j2-2] = 4;
+                // carte.feux[id_feux][0] = i+1;
+                // carte.feux[id_feux][1] = j2-2;
+                // id_feux++;
 
             }
 
@@ -286,6 +286,9 @@ carte_routiere place_cars_rd(carte_routiere carte , int nb_voitures){
 }
 
 carte_routiere move_car(carte_routiere carte,int id_car){
+    if(carte.voitures[id_car] == NULL){
+        return carte;
+    }
     int y = carte.voitures[id_car][0];
     int x = carte.voitures[id_car][1];
 
@@ -293,6 +296,14 @@ carte_routiere move_car(carte_routiere carte,int id_car){
 
     if(carte.plateau[y][x]==6){
         //deplacement horizontal
+        if(carte.voitures[id_car][1]>=carte.colonnes-1){
+            carte.voitures[id_car][0] = y;
+            carte.voitures[id_car][1] = 0;
+            carte.voitures[id_car] = NULL;
+            carte.plateau[y][x] = 1;
+            // carte.plateau[y][x+1] = 6;
+        }
+
         if((carte.plateau[y][x+1]==1 || carte.plateau[y][x+1]==2) && (x<1 || carte.plateau[y+1][x-1]!=5)){ //test voiture en +1 et test feu rouge
             carte.voitures[id_car][0] = y;
             carte.voitures[id_car][1] = x+1;
@@ -303,8 +314,15 @@ carte_routiere move_car(carte_routiere carte,int id_car){
     }
     else{
         //deplacement vertical
+        if(carte.voitures[id_car][0]>=carte.lignes-1){
+            carte.voitures[id_car][0] = 0;
+            carte.voitures[id_car][1] = x;
+            carte.voitures[id_car] = NULL;
+            carte.plateau[y][x] = 2;
+            //carte.plateau[y+1][x] = 7;
+        }
 
-        if((carte.plateau[y+1][x]==2 || carte.plateau[y+1][x]==1) && (y<1 || carte.plateau[y-1][x-1]!=5)){ //test voiture en +1 et test feu rouge
+        else if((carte.plateau[y+1][x]==2 || carte.plateau[y+1][x]==1) && (y<1 || carte.plateau[y-1][x-1]!=5)){ //test voiture en +1 et test feu rouge
             carte.voitures[id_car][0] = y+1;
             carte.voitures[id_car][1] = x;
             carte.plateau[y][x] = 2;
