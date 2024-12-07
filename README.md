@@ -1,5 +1,5 @@
-### choses à faire et problemes ###
+### how to laucnh ###
 
-plus rien à faire
-peut etre synchroniser les feux
-et tester les limites
+execute launcher.exe
+
+select 1 or 2 to select the simulation version
