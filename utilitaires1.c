@@ -1,4 +1,4 @@
-#include "jeu.h"
+#include "jeu1.h"
 #include <math.h>
 #include <time.h>
 #include <stdio.h>

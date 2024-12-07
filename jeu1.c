@@ -1,4 +1,4 @@
-#include "utilitaires.c"
+#include "utilitaires1.c"
 pthread_mutex_t dmutex = PTHREAD_MUTEX_INITIALIZER;
 
 int main()

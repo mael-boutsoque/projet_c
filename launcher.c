@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 int main()
 {
@@ -19,12 +20,14 @@ int main()
     switch(choix){
         case 1:
         printf("version normale\n");
-        system("C:/Users/maelb/Documents/ecole/C/projet_c/projet_c/jeu.exe");
+        Sleep(3);
+        system("jeu1.exe");
         break;
 
         case 2:
         printf("version avec threads\n");
-        system("./projet_c_multi_thread/jeu.exe");
+        Sleep(3);
+        system("jeu2.exe");
         break;
     }
 
